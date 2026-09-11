@@ -15,6 +15,7 @@ import de.kwantux.networks.utils.BlockLocation;
 import de.kwantux.networks.utils.ItemHash;
 import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -154,11 +155,13 @@ public class NetworksCommand extends CommandHandler {
         cmd.command(cmd.commandBuilder("networks", Config.commands)
                 .literal("owner")
                 .required("player", playerParser())
-                .handler(this::owner)
+                .senderType(PlayerSource.class)
+                .handler(this::transferOwnership)
         );
         cmd.command(cmd.commandBuilder("networks", Config.commands)
                 .literal("accept")
                 .required("network", networkParser())
+                .senderType(PlayerSource.class)
                 .handler(this::acceptTransfer)
         );
         if (Config.allowMerge)
@@ -616,14 +619,14 @@ public class NetworksCommand extends CommandHandler {
 
     }
 
-    private void owner(CommandContext<Source> context) {
-        CommandSender sender = context.sender().source();
-        boolean request = Config.requestOwnershipTransfers && !sender.hasPermission("network.transfer_without_request");
+    private void transferOwnership(CommandContext<PlayerSource> context) {
+        Player sender = context.sender().source();
+        boolean request = Config.requestOwnershipTransfers && !sender.hasPermission("networks.transfer_without_request");
         Player target = context.get("player");
         Network network = selection(sender);
         if (network == null) return;
 
-        if (!(mgr.listNetworksWithOwner(target.getUniqueId()).size() < Config.maxNetworks || sender.hasPermission("networks.bypass_limit"))) {
+        if (!(mgr.listNetworksWithOwner(target.getUniqueId()).size() < Config.maxNetworks || target.hasPermission("networks.bypass_limit") || mgr.force(sender))) {
             lang.message(context.sender(), "create.limit", target.displayName());
             return;
         }
@@ -641,6 +644,7 @@ public class NetworksCommand extends CommandHandler {
         if (request) {
             lang.message(sender, "user.owner.request.donator", Component.text(network.name()), target.displayName());
             lang.message(target, "user.owner.request.acceptor", network.name(), Bukkit.getOfflinePlayer(network.owner()).getName());
+            target.sendMessage(lang.getFinal("user.owner.request.acceptor.clickhere").clickEvent(ClickEvent.runCommand("/runcmd networks accept " + network.name())));
             mgr.requestTransfer(network, target);
         }
 
@@ -648,12 +652,14 @@ public class NetworksCommand extends CommandHandler {
             network.removeUser(target.getUniqueId());
             network.addUser(network.owner());
             network.owner(target.getUniqueId());
+            lang.message(sender, "user.owner.transfer.donator", Component.text(network.name()), target.displayName());
+            lang.message(target, "user.owner.transfer.acceptor", network.name(), Bukkit.getOfflinePlayer(network.owner()).getName());
         }
     }
 
 
-    private void acceptTransfer(CommandContext<Source> context) {
-        Player sender = (Player) context.sender();
+    private void acceptTransfer(CommandContext<PlayerSource> context) {
+        Player sender = context.sender().source();
         Network network = context.get("network");
 
         if (!mgr.canTransfer(network, sender)) {
@@ -663,7 +669,7 @@ public class NetworksCommand extends CommandHandler {
 
         lang.message(sender, "user.owner.accept.acceptor", Component.text(network.name()));
         Player owner = Bukkit.getPlayer(network.owner());
-        if (owner != null) lang.message(owner, "user.owner.accept.donator", sender.displayName());
+        if (owner != null) lang.message(owner, "user.owner.accept.donator", Component.text(network.name()), sender.displayName());
 
         mgr.acceptTransfer(network);
 

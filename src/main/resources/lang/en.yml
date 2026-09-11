@@ -145,10 +145,13 @@ user.remove.nochange: <prefix>Player <2> hasn't been added to network <1>
 user.owner: <prefix>Transferred ownership of <2> to player <1>
 user.owner.nochange: <prefix>Player <2> was already owner of network <1>
 user.owner.norequest: <prefix><red>Nothing to accept</red>
-user.owner.request.acceptor: <prefix>Player <green><2></green> want's to make you the owner of network <green><1><newline></green>Run <yellow><click:suggest_command:/net accept >/net accept <1></click></yellow> to accept.
-user.owner.request.donator: <prefix>Request was sent to player <1>
+user.owner.request.acceptor: <prefix><green><2></green> want's to make you the owner of network <green><1></green>
+user.owner.request.acceptor.clickhere: <prefix><blue>Click here</blue> to accept
+user.owner.request.donator: <prefix>Transfer request for network <green><1></green> was sent to player <green><2></green>
 user.owner.accept.acceptor: <prefix>Network <green><1></green> is now your's. The original owner is still added as a user.
-user.owner.accept.donator: <prefix>Transfer request was accepted by <green><1></green>
+user.owner.accept.donator: <prefix>Transfer request was accepted by <green><2></green>
+user.owner.transfer.acceptor: <prefix><green><2></green> made you the owner of network <green><1></green>. The original owner is still added as a user.
+user.owner.transfer.donator: <prefix>Network <green><1></green> was transferred to <green><2></green>
 
 merge.identical: <prefix><red>Sorry but the laws of physics can't be broken.
 merge.nopermission: <prefix><red>You need to be owner of both networks in order to merge them!

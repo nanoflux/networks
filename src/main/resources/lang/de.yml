@@ -141,10 +141,14 @@ user.remove.nochange: <prefix>Spieler <2> war bereits kein Nutzer von <1>
 user.owner: <prefix>Spieler <1> ist nun Besitzer des Netzwerks <2>
 user.owner.nochange: <prefix>Spieler <green><2></green> besaß schon Netzwerk <green><1></green>
 user.owner.norequest: <prefix><red>Nothing to accept</red>
-user.owner.request.acceptor: <prefix>Spieler <green><2></green> will dich zum neuen Besitzer des Netzwerks <green><1></green> machen.<newline>Nutze <yellow><click:suggest_command:/net accept >/net accept <1></click></yellow> um den Transfer zu akzeptieren.
-user.owner.request.donator: <prefix>Übertragungsanfrage wurde an Spieler <green><1></green> gesendet.
+user.owner.request.acceptor: <prefix><green><2></green> will dich zum neuen Besitzer des Netzwerks <green><1></green> machen.
+user.owner.request.acceptor.clickhere: <prefix><blue>Klicke hier</blue>, um den Transfer zu akzeptieren.
+user.owner.request.donator: <prefix>Übertragungsanfrage für das Netzwerk <green><1></green> wurde an Spieler <green><2></green> gesendet.
 user.owner.accept.acceptor: <prefix>Netzwerk <green><1></green> ist jetzt deins. Der vorherige Besitzer ist noch als Nutzer hinzugefügt.
-user.owner.accept.donator: <prefix>Übertragungsanfrage wurde von <green><1></green> angenommen.
+user.owner.accept.donator: <prefix>Übertragungsanfrage wurde von <green><2></green> angenommen.
+user.owner.transfer.acceptor: <prefix><green><2></green> hat dich zum neuen Besitzer des Netzwerks <green><1></green> gemacht. Der vorherige Besitzer ist noch als Nutzer hinzugefügt.
+user.owner.transfer.donator: <prefix>Netzwerk <green><1></green> gehört jetzt <green><2></green>
+
 merge.identical: <prefix><red>Tut mir leid, aber das ist leider nicht möglich
 merge.nopermission: <prefix><red>Zum Zusammenführen von zwei Netzwerken musst du beide besitzen!
 merge.success: <prefix>Netzwerk <2> wurde in Netzwerk <1> integriert
