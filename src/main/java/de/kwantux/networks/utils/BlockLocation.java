@@ -4,10 +4,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.UUID;
 
 import static de.kwantux.networks.Main.lang;
@@ -55,12 +57,16 @@ public class BlockLocation extends Origin {
         return world;
     }
 
-    public org.bukkit.Location getBukkitLocation() {
-        return new org.bukkit.Location(Bukkit.getWorld(getWorld()), x, y, z);
+    public @Nullable org.bukkit.Location getBukkitLocation() {
+        World world = Bukkit.getWorld(getWorld());
+        if (world == null) return null;
+        return new org.bukkit.Location(world, x, y, z);
     }
 
-    public Block getBlock() {
-        return this.getBukkitLocation().getBlock();
+    public @Nullable Block getBlock() {
+        Location bukkitLocation = this.getBukkitLocation();
+        if (bukkitLocation == null) return null;
+        return bukkitLocation.getBlock();
     }
 
     public boolean isLoaded() {

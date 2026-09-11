@@ -9,6 +9,7 @@ import de.kwantux.networks.utils.BlockLocation;
 import de.kwantux.networks.utils.Origin;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Nameable;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -47,12 +48,20 @@ public abstract class BlockComponent extends InstallableComponent {
     }
 
     public boolean ready() {
-        return (Config.loadChunks || isLoaded()) && Main.instance.getServer().isOwnedByCurrentRegion(pos.getBukkitLocation());
+        if (!(Config.loadChunks || isLoaded())) return false;
+        Location location = pos.getBukkitLocation();
+        if (location == null) return false;
+        return Main.instance.getServer().isOwnedByCurrentRegion(location);
     }
 
     @Override
     public void setBlockData() {
-        BlockState state = pos.getBlock().getState();
+        Block block = pos.getBlock();
+        if (block == null) {
+            network().removeComponent(origin());
+            return;
+        }
+        BlockState state = block.getState();
         if (state instanceof TileState tileState) {
             tileState.getPersistentDataContainer().set(NETWORK.key, PersistentDataType.STRING, network().name());
         }
@@ -64,7 +73,12 @@ public abstract class BlockComponent extends InstallableComponent {
 
     @Override
     public void resetBlockData() {
-        BlockState state = pos.getBlock().getState();
+        Block block = pos.getBlock();
+        if (block == null) {
+            network().removeComponent(origin());
+            return;
+        }
+        BlockState state = block.getState();
         if (state instanceof TileState tileState) {
             tileState.getPersistentDataContainer().remove(NETWORK.key);
         }

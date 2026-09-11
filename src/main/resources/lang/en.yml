@@ -8,6 +8,7 @@ help: "\n
 
 \n<click:suggest_command:/net create>/net create (id)</click> - <yellow>Create a new network</yellow>
 \n<click:suggest_command:/net rename>/net rename (id)</click> - <yellow>Rename a network</yellow>
+\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Merge net2 into net1</yellow>
 \n<click:suggest_command:/net delete>/net delete (id)</click> - <yellow>Delete a network</yellow>
 \n
 \n<click:suggest_command:/net select>/net select (id)</click> - <yellow>Select a network</yellow>
@@ -18,10 +19,11 @@ help: "\n
 \n
 \n<click:suggest_command:/net user add>/net user add (player)</click> - <yellow>Give a player access to your network</yellow>
 \n<click:suggest_command:/net user remove>/net user remove (player)</click> - <yellow>Revoke a player's access to your network</yellow>
+\n<click:suggest_command:/net owner>/net owner (player)</click> - <yellow>Transfer network ownership to another player</yellow>
+\n<click:suggest_command:/net accept>/net accept (network)</click> - <yellow>Accept a network ownership transfer</yellow>
 \n
 \n<click:suggest_command:/net items>/net items</click> - <yellow>List all your items</yellow>
 \n
-\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Merge net2 into net1</yellow>
 \n
 \n<blue><click:open_url:'https://networks.kwantux.de'>[Open the user manual]</click></blue>
 \n
@@ -31,11 +33,11 @@ help.admin: "\n
 <bold><dark_green>          Networks v<1> - Help Menu
 \n============================================</dark_green></bold>
 
-\n<click:suggest_command:/net data save>/net data save</click> - <yellow>Save all networks</yellow>
-\n<click:suggest_command:/net data reload>/net data reload</click> - <yellow>Reload the configs</yellow>
+\n<click:suggest_command:/net force>/net force</click> - <yellow>Toggle force mode - This allows you to bypass network permissions</yellow>
 \n
 \n<click:suggest_command:/net create>/net create (id)</click> - <yellow>Create a new network</yellow>
 \n<click:suggest_command:/net rename>/net rename (id)</click> - <yellow>Rename a network</yellow>
+\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Merge net2 into net1</yellow>
 \n<click:suggest_command:/net delete>/net delete (id)</click> - <yellow>Delete a network</yellow>
 \n
 \n<click:suggest_command:/net select>/net select (id)</click> - <yellow>Select a network</yellow>
@@ -46,10 +48,13 @@ help.admin: "\n
 \n
 \n<click:suggest_command:/net user add>/net user add (player)</click> - <yellow>Give a player access to your network</yellow>
 \n<click:suggest_command:/net user remove>/net user remove (player)</click> - <yellow>Revoke a player's access to your network</yellow>
+\n<click:suggest_command:/net owner>/net owner (player)</click> - <yellow>Transfer network ownership to another player</yellow>
+\n<click:suggest_command:/net accept>/net accept (network)</click> - <yellow>Accept a network ownership transfer</yellow>
 \n
 \n<click:suggest_command:/net items>/net items</click> - <yellow>List all your items</yellow>
 \n
-\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Merge net2 into net1</yellow>
+\n<click:suggest_command:/net data save>/net data save</click> - <yellow>Save all networks</yellow>
+\n<click:suggest_command:/net data fixcache>/net data fixcache</click> - <yellow>Rebuild block cache for all networks</yellow>
 \n
 \n<blue><click:open_url:'https://networks.kwantux.de'>[Open the user manual]</click>
 \n
@@ -145,10 +150,13 @@ user.remove.nochange: <prefix>Player <2> hasn't been added to network <1>
 user.owner: <prefix>Transferred ownership of <2> to player <1>
 user.owner.nochange: <prefix>Player <2> was already owner of network <1>
 user.owner.norequest: <prefix><red>Nothing to accept</red>
-user.owner.request.acceptor: <prefix>Player <green><2></green> want's to make you the owner of network <green><1><newline></green>Run <yellow><click:suggest_command:/net accept >/net accept <1></click></yellow> to accept.
-user.owner.request.donator: <prefix>Request was sent to player <1>
+user.owner.request.acceptor: <prefix><green><2></green> want's to make you the owner of network <green><1></green>
+user.owner.request.acceptor.clickhere: <prefix><blue>Click here</blue> to accept
+user.owner.request.donator: <prefix>Transfer request for network <green><1></green> was sent to player <green><2></green>
 user.owner.accept.acceptor: <prefix>Network <green><1></green> is now your's. The original owner is still added as a user.
-user.owner.accept.donator: <prefix>Transfer request was accepted by <green><1></green>
+user.owner.accept.donator: <prefix>Transfer request was accepted by <green><2></green>
+user.owner.transfer.acceptor: <prefix><green><2></green> made you the owner of network <green><1></green>. The original owner is still added as a user.
+user.owner.transfer.donator: <prefix>Network <green><1></green> was transferred to <green><2></green>
 
 merge.identical: <prefix><red>Sorry but the laws of physics can't be broken.
 merge.nopermission: <prefix><red>You need to be owner of both networks in order to merge them!

@@ -8,6 +8,7 @@ help: "\n
 
 \n<click:suggest_command:/net create>/net create (id)</click> - <yellow>Erstellt ein neues Netzwerk</yellow>
 \n<click:suggest_command:/net rename>/net rename (id)</click> - <yellow>Ein Netzwerk umbenennen</yellow>
+\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Überträgt alle Komponenten von net2 in net1 hinein</yellow>
 \n<click:suggest_command:/net delete>/net delete (id)</click> - <yellow>Ein Netzwerk löschen</yellow>
 \n
 \n<click:suggest_command:/net select>/net select (id)</click> - <yellow>Ein Netzwerk auswählen</yellow>
@@ -20,8 +21,6 @@ help: "\n
 \n<click:suggest_command:/net user remove>/net user remove (Spieler)</click> - <yellow>Entziehe einem Spieler Rechte auf dein Netzwerk</yellow>
 \n
 \n<click:suggest_command:/net items>/net items</click> - <yellow>Listet alle Items in deinem Netzwerk nach Häufgkeit auf</yellow>
-\n
-\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Überträgt alle Komponenten von net2 in net1 hinein</yellow>
 \n
 \n<blue><click:open_url:'https://networks.kwantux.de'>[Öffne das Networks Nutzerhandbuch]</click></blue>
 \n
@@ -31,11 +30,11 @@ help.admin: "\n
 <bold><dark_green>          Networks v<1> - Hilfe Menü
 \n============================================</dark_green></bold>
 
-\n<click:suggest_command:/net data save>/net data save</click> - <yellow>Alle Netzwerke speichern</yellow>
-\n<click:suggest_command:/net data reload>/net data reload</click> - <yellow>Lädt die Konfigurationsdateien neu</yellow>
+\n<click:suggest_command:/net force>/net force</click> - <yellow>Aktiviere den Force-Modus - damit kannst du alle Netzwerke bearbeiten</yellow>
 \n
 \n<click:suggest_command:/net create>/net create (id)</click> - <yellow>Erstellt ein neues Netzwerk</yellow>
 \n<click:suggest_command:/net rename>/net rename (id)</click> - <yellow>Ein Netzwerk umbenennen</yellow>
+\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Überträgt alle Komponenten von net2 in net1 hinein</yellow>
 \n<click:suggest_command:/net delete>/net delete (id)</click> - <yellow>Ein Netzwerk löschen</yellow>
 \n
 \n<click:suggest_command:/net select>/net select (id)</click> - <yellow>Ein Netzwerk auswählen</yellow>
@@ -46,11 +45,13 @@ help.admin: "\n
 \n
 \n<click:suggest_command:/net user add>/net user add (Spieler)</click> - <yellow>Gibt einem Spieler Zugriff auf dein Netzwerk</yellow>
 \n<click:suggest_command:/net user remove>/net user remove (Spieler)</click> - <yellow>Entziehe einem Spieler Rechte auf dein Netzwerk</yellow>
+\n<click:suggest_command:/net owner>/net owner (Spieler)</click> - <yellow>Übertrage das Netzwerk auf einen anderen Spieler</yellow>
+\n<click:suggest_command:/net accept>/net accept (Netzwerk)</click> - <yellow>Bestätige, dass du neuer Besitzer des Netzwerks werden möchtest</yellow>
 \n
 \n<click:suggest_command:/net items>/net items</click> - <yellow>Listet alle Items in deinem Netzwerk nach Häufgkeit auf</yellow>
-\n<click:suggest_command:/net view>/net view</click> - <yellow>Öffnet ein Menü, mit allen deinen Items</yellow>
 \n
-\n<click:suggest_command:/net merge>/net merge (net1) (net2)</click> - <yellow>Überträgt alle Komponenten von net2 in net1 hinein</yellow>
+\n<click:suggest_command:/net data save>/net data save</click> - <yellow>Alle Netzwerke speichern</yellow>
+\n<click:suggest_command:/net data fixcache>/net data fixcache</click> - <yellow>Blockcache für alle Netzwerke reparieren</yellow>
 \n
 \n<blue><click:open_url:'https://networks.kwantux.de'>[Öffne das Networks Nutzerhandbuch]</click></blue>
 \n
@@ -141,10 +142,14 @@ user.remove.nochange: <prefix>Spieler <2> war bereits kein Nutzer von <1>
 user.owner: <prefix>Spieler <1> ist nun Besitzer des Netzwerks <2>
 user.owner.nochange: <prefix>Spieler <green><2></green> besaß schon Netzwerk <green><1></green>
 user.owner.norequest: <prefix><red>Nothing to accept</red>
-user.owner.request.acceptor: <prefix>Spieler <green><2></green> will dich zum neuen Besitzer des Netzwerks <green><1></green> machen.<newline>Nutze <yellow><click:suggest_command:/net accept >/net accept <1></click></yellow> um den Transfer zu akzeptieren.
-user.owner.request.donator: <prefix>Übertragungsanfrage wurde an Spieler <green><1></green> gesendet.
+user.owner.request.acceptor: <prefix><green><2></green> will dich zum neuen Besitzer des Netzwerks <green><1></green> machen.
+user.owner.request.acceptor.clickhere: <prefix><blue>Klicke hier</blue>, um den Transfer zu akzeptieren.
+user.owner.request.donator: <prefix>Übertragungsanfrage für das Netzwerk <green><1></green> wurde an Spieler <green><2></green> gesendet.
 user.owner.accept.acceptor: <prefix>Netzwerk <green><1></green> ist jetzt deins. Der vorherige Besitzer ist noch als Nutzer hinzugefügt.
-user.owner.accept.donator: <prefix>Übertragungsanfrage wurde von <green><1></green> angenommen.
+user.owner.accept.donator: <prefix>Übertragungsanfrage wurde von <green><2></green> angenommen.
+user.owner.transfer.acceptor: <prefix><green><2></green> hat dich zum neuen Besitzer des Netzwerks <green><1></green> gemacht. Der vorherige Besitzer ist noch als Nutzer hinzugefügt.
+user.owner.transfer.donator: <prefix>Netzwerk <green><1></green> gehört jetzt <green><2></green>
+
 merge.identical: <prefix><red>Tut mir leid, aber das ist leider nicht möglich
 merge.nopermission: <prefix><red>Zum Zusammenführen von zwei Netzwerken musst du beide besitzen!
 merge.success: <prefix>Netzwerk <2> wurde in Netzwerk <1> integriert
